@@ -12,7 +12,10 @@ import org.apache.ibatis.annotations.Update;
 public interface StudentRepository {
 
   @Select("SELECT * FROM student")
-  List<Student> searchByName(String name);
+  List<Student> getStudentList(String name);
+
+  @Select("SELECT * FROM student WHERE name = #{name}")
+  Student searchByName(String name);
 
   @Insert("INSERT student values(#{name},#{age})")
   void resisterStudent(String name, int age);

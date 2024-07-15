@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
@@ -21,9 +22,15 @@ public class StudentManagementApplication {
     SpringApplication.run(StudentManagementApplication.class, args);
   }
 
+  @GetMapping("/studentList")
+  public List<Student> getStudentList(String name) {
+    return repository.getStudentList(name);
+  }
+
   @GetMapping("/student")
-  public List<Student> getStudent(String name) {
-    return repository.searchByName(name);
+  public String getStudent(@RequestParam String name) {
+    Student student = repository.searchByName(name);
+    return student.getName() + " " + student.getAge() + "歳";
   }
 
   @PostMapping("/student")
