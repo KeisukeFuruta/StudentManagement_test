@@ -14,6 +14,9 @@ public interface StudentRepository {
   @Select("SELECT * FROM student")
   List<Student> getStudentList(String name);
 
+  @Select("SELECT * FROM student")
+  List<Student> getStudentList2(String name);
+
   @Select("SELECT * FROM student WHERE name = #{name}")
   Student searchByName(String name);
 
