@@ -8,9 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import raisetech.java.StudentManagement.data.StudentCourses;
+import raisetech.java.StudentManagement.data.StudentCourse;
 import raisetech.java.StudentManagement.domain.StudentDetail;
 import raisetech.java.StudentManagement.service.StudentService;
 
@@ -53,7 +54,7 @@ public class StudentController {
   @GetMapping("/newStudent")
   public String newStudent(Model model) {
     StudentDetail studentDetail = new StudentDetail();
-    studentDetail.setStudentsCourses(Arrays.asList(new StudentCourses()));
+    studentDetail.setStudentCourseList(Arrays.asList(new StudentCourse()));
     model.addAttribute("studentDetail", studentDetail);
     return "registerStudent";
   }
@@ -72,7 +73,13 @@ public class StudentController {
   }
 
 
-  @PostMapping("/updateStudent")
+  /**
+   * 受講生詳細の更新を行います。 キャンセルフラグの更新もここで行います。(論理削除)
+   *
+   * @param studentDetail 受講生詳細
+   * @return 実行結果
+   */
+  @PutMapping("/updateStudent")
   public ResponseEntity<String> updateStudent(@RequestBody StudentDetail studentDetail) {
     // Repositoryにデータを保存する
     service.updateStudent(studentDetail);
